@@ -15,6 +15,7 @@ public class npcMovement : MonoBehaviour
     public float lookRadius = 3; // sight
     public NavMeshAgent agent;
     public GameObject DialogueBox;
+    public Animator npcAnimator;
 
     Vector3 lastPosition;
     Vector3 currentPosition;
@@ -42,7 +43,16 @@ public class npcMovement : MonoBehaviour
         }
         else
         {
-            talkToPlayer();
+            if (tag == "NPC")
+            {
+                npcAnimator.SetBool("isWalking", false);
+                talkToPlayer();
+            }
+            else if (tag == "Enemy")
+            {
+                Debug.Log("attack!");
+            }
+
 
         }
 
@@ -55,6 +65,7 @@ public class npcMovement : MonoBehaviour
 
     void moveInWayPoint()
     {
+        npcAnimator.SetBool("isWalking", true);
         float distance = Vector3.Distance(pathToFollow.pathObject[currentWayPointID].position, transform.position);
 
         transform.position = Vector3.MoveTowards(transform.position, pathToFollow.pathObject[currentWayPointID].position, Time.deltaTime * speed);
@@ -78,6 +89,7 @@ public class npcMovement : MonoBehaviour
         // talk to player
         if (Input.GetKeyDown(KeyCode.E))
         {
+            
             DialogueBox.SetActive(true); // show dialogue box
             DialogueBox.GetComponent<DialogueTrigger>().TriggerDialogue(); // call the trigger dialogue function
             agent.isStopped = true;

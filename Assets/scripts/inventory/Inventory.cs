@@ -13,7 +13,10 @@ public class Inventory : MonoBehaviour {
     public GameObject slotPrefab;
     private List<GameObject> allSlots;
     private static int emptySlots;
+
+    [SerializeField]
     private static Slots from,to;
+
     public GameObject iconPrefab;
     public static GameObject hoverObject;
     public Canvas canvas;

@@ -5,19 +5,19 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour {
 
     public Transform target; // whom to follow
-    public float smoothSpeed = 1.25f;
-    public Vector3 offset;
+    private Vector3 offset;
 
-     void Start()
+    void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
-        offset.y = 15;
+        //Calculate and store the offset value by getting the distance between the player's position and camera's position.
+        offset = transform.position - target.transform.position;
     }
 
      void LateUpdate()
     {
-        Vector3 desiredPosition = target.position + offset;
-        Vector3 smoothedPosition = Vector3.Slerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
-        
+        // Set the position of the camera's transform to be the same as the player's, but offset by the calculated offset distance.
+        transform.position = target.transform.position + offset;
+
     }
 }

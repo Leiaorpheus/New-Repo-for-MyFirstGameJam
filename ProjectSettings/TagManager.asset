@@ -10,6 +10,7 @@ TagManager:
   - wayPoint
   - focus
   - pistol
+  - beg
   layers:
   - Default
   - TransparentFX

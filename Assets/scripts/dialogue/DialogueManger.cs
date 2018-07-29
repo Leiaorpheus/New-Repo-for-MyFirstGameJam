@@ -11,6 +11,7 @@ public class DialogueManger : MonoBehaviour {
     public Text dialogue;
     public Animator animator;
     public NavMeshAgent player;
+    public GameObject playerObject;
   
 	
 	
@@ -64,6 +65,7 @@ public class DialogueManger : MonoBehaviour {
         animator.SetBool("isOpen", false);
         player.isStopped = false; // can walk now
         player.ResetPath();
+        playerObject.GetComponent<PlayerMovement>().enabledInput = true;
         //Debug.Log("End");
         // player can move
 

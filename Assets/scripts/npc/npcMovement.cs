@@ -13,9 +13,11 @@ public class npcMovement : MonoBehaviour
     public float rotationSpeed = 5.0f;
     public string pathName;
     public float lookRadius = 3; // sight
+    public bool isHit;
     public NavMeshAgent agent;
     public GameObject DialogueBox;
     public Animator npcAnimator;
+    public GameObject player;
 
     Vector3 lastPosition;
     Vector3 currentPosition;
@@ -35,23 +37,24 @@ public class npcMovement : MonoBehaviour
 
         float NPCToPlayer = Vector3.Distance(agent.transform.position, transform.position);
 
+
         // move
         if (NPCToPlayer > lookRadius)
         {
             DialogueBox.SetActive(false);
             moveInWayPoint();
+            
         }
         else
-        {
+        {   
+  
             if (tag == "NPC")
             {
                 npcAnimator.SetBool("isWalking", false);
                 talkToPlayer();
+                //player.GetComponent<PlayerMovement>().enabledInput = true;
             }
-            else if (tag == "Enemy")
-            {
-                Debug.Log("attack!");
-            }
+           
 
 
         }
@@ -86,14 +89,18 @@ public class npcMovement : MonoBehaviour
 
     void talkToPlayer()
     {
+       
         // talk to player
         if (Input.GetKeyDown(KeyCode.E))
         {
-            
+            player.GetComponent<PlayerMovement>().enabledInput = false;
             DialogueBox.SetActive(true); // show dialogue box
             DialogueBox.GetComponent<DialogueTrigger>().TriggerDialogue(); // call the trigger dialogue function
             agent.isStopped = true;
+           
         }
+        
+
     }
 
     void OnDrawGizmos()

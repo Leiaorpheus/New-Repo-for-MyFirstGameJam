@@ -1,2 +1,2 @@
-# MyFirstGameJam
-This is the entry for my first game jam
+# New-Repo-for-MyFirstGameJam
+This is the new repository for the first game jam
